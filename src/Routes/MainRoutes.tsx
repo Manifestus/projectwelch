@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Clientpage } from "../Client/Clientpage";
 import { Homepage } from "../Homepage/Homepage";
+import { Reports } from "../Reports/Reports";
 
 interface IProps {}
 
