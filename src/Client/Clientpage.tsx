@@ -192,15 +192,16 @@ export const Clientpage: FC<IProps> = (props) => {
               </Tr>
             </Thead>
             <Tbody>
+              <Tr>
               <Td>Victor</Td>
               <Td>Figueroa</Td>
               <Td>vmfch@this.com</Td>
               <Td>Honduras</Td>
               <Td>Col. Tepesquincle</Td>
               <Td justifyContent='space-between'>
-                <Button>{EditClient}</Button>
-                <Button>{DeleteClient}</Button>
+                
               </Td>
+              </Tr>
             </Tbody>
           </Table>
         </Flex>
