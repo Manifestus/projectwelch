@@ -178,7 +178,7 @@ export const Clientpage: FC<IProps> = (props) => {
         flexDirection="column"
       >
         <Flex h="25rem" w="80vw" bgColor="#F2E0DF " flexDirection="column">
-          <Flex w='10vw'>{AddClient()}</Flex>
+          <Flex w='10vw' alignSelf='end'>{AddClient()}</Flex>
           <Table variant="simple">
             <TableCaption>Client Creation Table</TableCaption>
             <Thead>

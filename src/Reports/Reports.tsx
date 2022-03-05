@@ -1,4 +1,6 @@
+import { Flex } from '@chakra-ui/react'
 import React, { FC } from 'react'
+import { SharedNavbar } from '../Shared/SharedNavbar'
 
 interface IProps {}
 
@@ -9,8 +11,9 @@ interface IProps {}
 
 export const Reports:FC<IProps> = (props) => {
   return (
-    <div>
-    
-    </div>
+    <>
+      <SharedNavbar/>
+      <Flex bgColor='#F25749' h='calc(100vh - 50 px)'></Flex>
+    </>
    )
  }
