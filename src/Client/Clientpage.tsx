@@ -1,16 +1,8 @@
+import { AddIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Button,
   Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
+  Icon,
   Table,
   TableCaption,
   Tbody,
@@ -20,152 +12,39 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+import { IClient } from "../Models/Client";
 import { SharedNavbar } from "../Shared/SharedNavbar";
+import { ClientFormModal } from "./ClientFormModal";
 
 interface IProps {}
 
 /**
-* @author
-* @function @Clientpage
-
-**/
-
-//Functions
-
-//Add Delete Button
-
-//Modal Add Client
-const AddClient = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return (
-    <>
-      <Button onClick={onOpen}>+</Button>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Add Client</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <FormControl>
-              <FormLabel htmlFor="first name">First Name</FormLabel>
-              <Input id="first name" type="first name" />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel htmlFor="last name">Last Name</FormLabel>
-              <Input id="last name" type="last name" />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <Input id="email" type="email" />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel htmlFor="country">Country</FormLabel>
-              <Input id="country" type="country" />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel htmlFor="address">Address</FormLabel>
-              <Input id="address" type="address" />
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button>Add Client</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
-};
-
-//Modal Edit Client
-const EditClient = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return (
-    <>
-      <Button onClick={onOpen}>{"✎"}</Button>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Edit Client</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <FormControl>
-              <FormLabel htmlFor="first name">First Name</FormLabel>
-              <Input id="first name" type="first name" />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel htmlFor="last name">Last Name</FormLabel>
-              <Input id="last name" type="last name" />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <Input id="email" type="email" />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel htmlFor="country">Country</FormLabel>
-              <Input id="country" type="country" />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel htmlFor="address">Address</FormLabel>
-              <Input id="address" type="address" />
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button>Edit Client</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
-};
-
-const DeleteClient = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return (
-    <>
-      <Button onClick={onOpen}>{"🗑️"}</Button>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          
-          <ModalCloseButton />
-          <ModalBody>
-            
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button>Delete Client</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
-};
+ * @author
+ * @function @Clientpage
+ **/
 
 //Main
 export const Clientpage: FC<IProps> = (props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [client, setClient] = useState<IClient | undefined>();
+  const data: IClient[] = [
+    {
+      firstName: "Victor",
+      lastName: "Figueroa",
+      email: "vmfch@this.com",
+      country: "Honduras",
+      address: "Col. Tepesquincle",
+    },
+  ];
+  const autoClose = () => {
+    if (editMode) {
+      setEditMode(false);
+      setClient(undefined);
+    }
+    onClose();
+  };
   return (
     <>
       <SharedNavbar />
@@ -178,7 +57,11 @@ export const Clientpage: FC<IProps> = (props) => {
         flexDirection="column"
       >
         <Flex h="25rem" w="80vw" bgColor="#F2E0DF " flexDirection="column">
-          <Flex w='10vw' alignSelf='end'>{AddClient()}</Flex>
+          <Flex w="10vw" alignSelf="end">
+            <Button onClick={onOpen}>
+              <AddIcon />
+            </Button>
+          </Flex>
           <Table variant="simple">
             <TableCaption>Client Creation Table</TableCaption>
             <Thead>
@@ -192,20 +75,41 @@ export const Clientpage: FC<IProps> = (props) => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-              <Td>Victor</Td>
-              <Td>Figueroa</Td>
-              <Td>vmfch@this.com</Td>
-              <Td>Honduras</Td>
-              <Td>Col. Tepesquincle</Td>
-              <Td justifyContent='space-between'>
-                
-              </Td>
-              </Tr>
+              {data.map((data, index) => {
+                return (
+                  <Tr key={`${index}-tableRow`}>
+                    <Td>{data.firstName}</Td>
+                    <Td>{data.lastName}</Td>
+                    <Td>{data.email}</Td>
+                    <Td>{data.country}</Td>
+                    <Td>{data.address}</Td>
+                    <Td justifyContent="space-between">
+                      <Flex w="5vw" alignSelf="end" id="editClient">
+                        <Button
+                          onClick={() => {
+                            setEditMode(true);
+                            onOpen();
+                            setClient(data);
+                          }}
+                        >
+                          <EditIcon />
+                        </Button>
+                      </Flex>
+                    </Td>
+                  </Tr>
+                );
+              })}
             </Tbody>
           </Table>
         </Flex>
       </Flex>
+      <ClientFormModal
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={autoClose}
+        isEditMode={editMode}
+        client={client}
+      />
     </>
   );
 };
