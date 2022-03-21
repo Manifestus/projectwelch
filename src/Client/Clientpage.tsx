@@ -2,7 +2,6 @@ import { AddIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Button,
   Flex,
-  Icon,
   Table,
   TableCaption,
   Tbody,

@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { Button, ChakraProvider, Flex } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import { Navbar } from "./Navbar";
 import { BgImage } from "./Homepage.styled";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {}
 
