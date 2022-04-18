@@ -27,15 +27,20 @@ interface IProps {
  * @function @ClientFormModal
  **/
 
-export const ClientFormModal: FC<IProps> = ({onOpen, isOpen, onClose, isEditMode, client}:IProps) => {
-    console.log(client);
+export const ClientFormModal: FC<IProps> = ({
+  onOpen,
+  isOpen,
+  onClose,
+  isEditMode,
+  client,
+}: IProps) => {
+  console.log(client);
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-            
-          <ModalHeader >{`${isEditMode? 'Edit': 'Add'} Client`}</ModalHeader>
+          <ModalHeader>{`${isEditMode ? "Edit" : "Add"} Client`}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
@@ -68,7 +73,7 @@ export const ClientFormModal: FC<IProps> = ({onOpen, isOpen, onClose, isEditMode
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button>Add Client</Button>
+            <Button onClick={onClose}>Add Client</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

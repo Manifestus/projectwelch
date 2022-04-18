@@ -11,7 +11,7 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { IClient } from "../Models/Client";
 import { SharedNavbar } from "../Shared/SharedNavbar";
 import { ClientFormModal } from "./ClientFormModal";
@@ -30,8 +30,8 @@ export const Clientpage: FC<IProps> = (props) => {
   const [client, setClient] = useState<IClient | undefined>();
   const data: IClient[] = [
     {
-      firstName: "Victor",
-      lastName: "Figueroa",
+      first_name: "Victor",
+      last_name: "Figueroa",
       email: "vmfch@this.com",
       country: "Honduras",
       address: "Col. Tepesquincle",
@@ -77,8 +77,8 @@ export const Clientpage: FC<IProps> = (props) => {
               {data.map((data, index) => {
                 return (
                   <Tr key={`${index}-tableRow`}>
-                    <Td>{data.firstName}</Td>
-                    <Td>{data.lastName}</Td>
+                    <Td>{data.first_name}</Td>
+                    <Td>{data.last_name}</Td>
                     <Td>{data.email}</Td>
                     <Td>{data.country}</Td>
                     <Td>{data.address}</Td>
