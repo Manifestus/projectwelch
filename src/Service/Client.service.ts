@@ -1,15 +1,13 @@
-import { Axios } from "axios";
+import Axios from "axios";
 import { IClient } from "../Models/Client";
 
 export class clientService {
-  clientsServer = new Axios({
-    baseURL: "https://projectwelchbe.herokuapp.com",
+  clientsServer = Axios.create({
+    baseURL: "http://localhost:5000/",
     timeout: 4000,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "*",
-      "Access-Control-Allow-Credentials": "true",
-    },
+    transformResponse: [function (data) {
+      return data;
+    }],
   });
 
   //GET Clients
@@ -18,8 +16,7 @@ export class clientService {
     try {
       const clientsResp = await this.clientsServer
         .get("/clients")
-        .then(() => {});
-      console.log(clientsResp);
+      return clientsResp.data
     } catch (error) {
       console.error(error);
     }
@@ -30,8 +27,8 @@ export class clientService {
   getUser = async (uuid: string) => {
     try {
       const clientResp = await this.clientsServer
-        .get("/clients")
-        .then(() => {});
+        .get(`/clients/${uuid}`)
+        return clientResp.data
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +38,9 @@ export class clientService {
 
   postClient = async (clientData: IClient) => {
     try {
+      console.log(clientData);
       const clientInfo = await this.clientsServer.post("/clients", clientData);
+      console.log(clientInfo);
     } catch (error) {
       console.error(error);
     }
@@ -55,6 +54,7 @@ export class clientService {
         "/clients",
         clientData
       );
+      console.log(clientPatch);
     } catch (error) {
       console.error(error);
     }
@@ -62,9 +62,10 @@ export class clientService {
 
   // DELETE Client
 
-  deleteClient = async (clientData: IClient, uuid: string) => {
+  deleteClient = async (uuid: string) => {
     try {
       const clientDelete = await this.clientsServer.delete(`/clients/${uuid}`);
+      console.log(clientDelete);
     } catch (error) {
       console.error(error);
     }
