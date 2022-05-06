@@ -4,32 +4,32 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^1.1.7",
-    "@chakra-ui/react": "^1.8.5",
-    "@emotion/react": "^11.8.1",
+    "@chakra-ui/react": "^1.8.8",
+    "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@reach/router": "^1.3.4",
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.3",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.4.0",
-    "@types/node": "^16.11.25",
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11",
+    "@types/jest": "^27.5.0",
+    "@types/node": "^16.11.33",
+    "@types/react": "^17.0.44",
+    "@types/react-dom": "^17.0.16",
     "axios": "^0.26.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
-    "express": "^4.17.3",
+    "express": "^4.18.1",
     "formik": "^2.2.9",
-    "framer-motion": "^6.2.7",
+    "framer-motion": "^6.3.3",
     "pg": "^8.7.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^6.2.1",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
-    "typescript": "^4.5.5",
+    "typescript": "^4.6.4",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11",
-    "zustand": "^4.0.0-rc.0"
+    "zustand": "^4.0.0-rc.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -58,6 +58,6 @@
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.6",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.16"
   }
 }

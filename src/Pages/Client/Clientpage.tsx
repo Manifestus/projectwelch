@@ -25,18 +25,22 @@ interface IProps {}
  **/
 
 //Main
+
+const clientServices = new clientService()
+
 export const Clientpage: FC<IProps> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [deleteMode, setDeleteMode] = useState<boolean>(false);
   const [client, setClient] = useState<IClient | undefined>();
 
   const [data, setData] = useState<IClient[]>([]);
   useEffect(() => {
-    const clientList = new clientService();
+    const clientList = new clientService()
     clientList.getUsers().then((response) => {
-      const data = JSON.parse(response);
-      setData(data);
-      return data;
+      const data = JSON.parse(response)
+      setData(data)
+      return data
     });
   }, []);
 
@@ -50,9 +54,8 @@ export const Clientpage: FC<IProps> = (props) => {
   return (
     <>
       <SharedNavbar />
-
       <Flex w="100vw" bgColor="#F2E0DF " flexDirection="column">
-        <Flex w="10vw" alignSelf="end">
+        <Flex padding="5px" w="10vw" alignSelf="end">
           <Button onClick={onOpen}>
             <AddIcon />
           </Button>
@@ -91,8 +94,8 @@ export const Clientpage: FC<IProps> = (props) => {
                       </Button>
                       <Button
                         onClick={() => {
-                          const clientList = new clientService();
-                          clientList.getUsers();
+                          setDeleteMode(true);
+                          clientServices.deleteClient(data.client_id)
                         }}
                       >
                         <DeleteIcon />
@@ -110,8 +113,10 @@ export const Clientpage: FC<IProps> = (props) => {
         onOpen={onOpen}
         onClose={autoClose}
         isEditMode={editMode}
+        isDeleteMode={deleteMode}
         client={client}
       />
+      <></>
     </>
   );
 };

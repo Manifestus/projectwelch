@@ -13,6 +13,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
+import React from "react";
 import { FC, useMemo } from "react";
 import { IClient } from "../../Models/Client";
 import { clientService } from "../../Service/Client.service";
@@ -22,7 +23,7 @@ interface IProps {
   onOpen: () => void;
   onClose: () => void;
   isOpen: boolean;
-  onMode?:{};
+  onMode?: {};
   isEditMode?: boolean;
   isDeleteMode?: boolean;
   client?: IClient;
@@ -34,7 +35,6 @@ interface IProps {
  * @function @ClientFormModal
  **/
 
-
 export const ClientFormModal: FC<IProps> = ({
   onOpen,
   isOpen,
@@ -42,7 +42,6 @@ export const ClientFormModal: FC<IProps> = ({
   isEditMode,
   isDeleteMode,
   client,
-  onMode
 }: IProps) => {
   const initialValues = useMemo(
     () => ({
@@ -69,6 +68,7 @@ export const ClientFormModal: FC<IProps> = ({
       onClose();
       if (isEditMode) {
         //patch
+        clientServices.patchClient(val)
       } else {
         //post
         clientServices.postClient(val);
@@ -76,28 +76,43 @@ export const ClientFormModal: FC<IProps> = ({
     },
   });
 
+  let firstNamePlaceholder: string | undefined = ''
+  let lastNamePlaceholder: string | undefined = ''
+  let emailPlaceholder: string | undefined = ''
+  let countryPlaceholder: string | undefined = ''
+  let addressPlaceholder: string | undefined = ''
+
+  if (isEditMode) {
+    firstNamePlaceholder = client?.first_name
+    lastNamePlaceholder = client?.last_name
+    emailPlaceholder = client?.email
+    countryPlaceholder = client?.country
+    addressPlaceholder = client?.address
+  } else {
+    
+  }
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{(`${isEditMode ? "Edit" : (isDeleteMode ? 'Delete' : 'Add')} Client`)}</ModalHeader>
+          <ModalHeader>{`${
+            isEditMode ? "Edit" : isDeleteMode ? "Delete" : "Add"
+          } Client`}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
               <FormLabel htmlFor="first name">First Name</FormLabel>
-              <>
-
-              {(`${isEditMode ? "Edit" : (isDeleteMode ? 'Delete' : 'Add')}`)}
-              
-              </>
+              <>{`${isEditMode ? "Edit" : isDeleteMode ? "Delete" : "Add"}`}</>
               <Input
                 id="first_name"
                 name="first_name"
+                placeholder= {firstNamePlaceholder}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 defaultValue={form.values.first_name}
-                />
+              />
 
               {form.touched?.first_name && form.errors?.first_name && (
                 <FormErrorMessage>First Name is required.</FormErrorMessage>
@@ -109,6 +124,7 @@ export const ClientFormModal: FC<IProps> = ({
               <Input
                 id="last_name"
                 name="last_name"
+                placeholder={lastNamePlaceholder}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 defaultValue={form.values.last_name}
@@ -124,6 +140,7 @@ export const ClientFormModal: FC<IProps> = ({
               <Input
                 id="email"
                 name="email"
+                placeholder= {emailPlaceholder}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 defaultValue={form.values.email}
@@ -139,6 +156,7 @@ export const ClientFormModal: FC<IProps> = ({
               <Input
                 id="country"
                 name="country"
+                placeholder= {countryPlaceholder}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 defaultValue={form.values.country}
@@ -154,6 +172,7 @@ export const ClientFormModal: FC<IProps> = ({
               <Input
                 id="address"
                 name="address"
+                placeholder= {addressPlaceholder}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 defaultValue={form.values.address}

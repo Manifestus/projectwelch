@@ -62,7 +62,7 @@ export class clientService {
 
   // DELETE Client
 
-  deleteClient = async (uuid: string) => {
+  deleteClient = async (uuid: string | undefined) => {
     try {
       const clientDelete = await this.clientsServer.delete(`/clients/${uuid}`);
       console.log(clientDelete);
