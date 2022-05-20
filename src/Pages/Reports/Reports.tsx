@@ -2,6 +2,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Button, Flex, Img, Wrap } from "@chakra-ui/react";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "../../Store/Store";
 import { SharedNavbar } from "../Shared/SharedNavbar";
 
 interface IProps {}
@@ -19,6 +20,8 @@ const buttonStyles = {
 
 export const Reports: FC<IProps> = (props) => {
   const navigate = useNavigate();
+  const currentClient = useStore();
+
   return (
     <>
       <SharedNavbar />
@@ -75,8 +78,26 @@ export const Reports: FC<IProps> = (props) => {
           flexDir="column"
           gap="50px"
         >
-          <Flex w="20vw" h="35vh" justifyContent="center" onClick={() => navigate('/reportorders')}>
-            <Img src="/images/38-388379_paper-icon-png.png" />
+          <Flex w="20vw" h="35vh" justifyContent="center">
+            {/* <Tooltip label={() => {
+              if (currentClient.client.first_name === "No" && currentClient.client.last_name === "Client") {
+                return "No Client Selected"
+              } else {
+                return null
+              }
+            }} bg="red.600"> */}
+            <Img
+              src="/images/38-388379_paper-icon-png.png"
+              onClick={() => {
+                if (
+                  currentClient.client.first_name !== "No" &&
+                  currentClient.client.last_name !== "Client"
+                ) {
+                  return navigate("/reportorders");
+                }
+              }}
+            />
+            {/* </Tooltip> */}
           </Flex>
           <Wrap color="gray">Report by Order</Wrap>
         </Flex>

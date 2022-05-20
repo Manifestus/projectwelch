@@ -1,6 +1,5 @@
 import { SearchIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import {
-  Flex,
   Input,
   Menu,
   MenuButton,
@@ -30,16 +29,20 @@ export const ClientSearch: FC<IProps> = (props) => {
       setData(data);
       return data;
     });
+
+    return (() => {
+      setData([])
+    })
   }, []);
 
   const [name, setName] = useState("");
   return (
-    <Flex h="40px" w="100vw">
+    <>
       <SearchIcon mt="3" w="2vw" />
       <Input
         placeholder="No Client"
         w="97.14vw"
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e: any) => setName(e.target.value)}
       />
       <Menu>
         <MenuButton as={Button} rightIcon={<ChevronDownIcon />} w="100vw">
@@ -66,6 +69,6 @@ export const ClientSearch: FC<IProps> = (props) => {
           })}
         </MenuList>
       </Menu>
-    </Flex>
+    </>
   );
 };

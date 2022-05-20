@@ -41,8 +41,8 @@ export const Clientpage: FC<IProps> = (props) => {
       const data = JSON.parse(response)
       setData(data)
       return data
-    });
-  }, []);
+    })
+  }, [])
 
   const autoClose = () => {
     if (editMode) {
@@ -61,7 +61,7 @@ export const Clientpage: FC<IProps> = (props) => {
           </Button>
         </Flex>
         <Table variant="simple">
-          <TableCaption>Client Creation Table</TableCaption>
+          <TableCaption>Clients Table</TableCaption>
           <Thead>
             <Tr>
               <Th>First Name</Th>
